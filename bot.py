@@ -3,11 +3,13 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from os import system
 import time
 import pandas as pd
 
-
+b = False
+inputTag = [0]
 
 def inner_info(info):
     WebDriverWait(driver, 5)\
@@ -94,25 +96,30 @@ driver.quit()
 driver.execute_script("window.scrollTo(0, 1080)")
 time.sleep(1.5)
 
-for i in range(1,100000):
+for i in range(31267,100000):
     
     p = str("Rx8-" + str(i).zfill(5))
 
-    #driver.find_elements_by_xpath('/html/body/div[3]/div/div[3]/div/div/form/div[1]/input').clear()
+    inputTag[0] = driver.find_element_by_xpath('/html/body/div[3]/div/div[3]/div/div/form/div[1]/input')
+
+    if b:
+        #inputTag[0].send_keys(Keys.CONTROL + "a")
+        #inputTag[0].send_keys(Keys.DELETE)
+        inputTag[0].clear()
+    
 
     WebDriverWait(driver, 10)\
         .until(EC.element_to_be_clickable((By.XPATH,
                                             '/html/body/div[3]/div/div[3]/div/div/form/div[1]/input')))\
-        .clear().send_keys(p)
+        .send_keys(p)
 
-    print("TEST".center(300,"/"))
     WebDriverWait(driver, 10)\
         .until(EC.element_to_be_clickable((By.XPATH,
                                         '/html/body/div[3]/div/div[3]/div/div/form/div[2]/div/button')))\
         .click()
-    print("TEST".center(300,"/"))
-    time.sleep(1)
-        
+
+    #time.sleep(1)
+
 
     WebDriverWait(driver, 10)\
         .until(EC.element_to_be_clickable((By.XPATH,
@@ -127,18 +134,19 @@ for i in range(1,100000):
             .until(EC.element_to_be_clickable((By.XPATH,
                                                    '/html/body/div[8]/div/div[3]/button[1]')))\
             .click()
+        
     elif 'Puedes' in respuesta:
             #inner_info(info)
         with open("positives.txt", "a") as g:
             d = p + "\n"
             g.write(d)
-        print('ESCRITO CON EXITO')
+        b = False
         driver.refresh()
         time.sleep(2)
     else:
         print("No Found")
         system("pause")
-            
+    b = True     
     with open("flag.txt","w") as f:
         f.write(p)
 
