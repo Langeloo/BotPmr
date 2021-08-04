@@ -76,9 +76,9 @@ options.add_argument('--disable-extensions')
 driver_path = 'chromedriver.exe'
 
 
-info = {"NOMBRE": "Miguel Anguel", "APELLIDO":"Ramirez Bonilla",
-        "CEDULA": "1003751809", "EMAIL":"miguelitoramirez02.2@gmail.com",
-        "TEL":"3212854076"}
+info = {"NOMBRE": "Name", "APELLIDO":"Last_Name",
+        "CEDULA": "000000", "EMAIL":"pruebaproject@gmail.com",
+        "TEL":"3000000000"}
 
 
 
